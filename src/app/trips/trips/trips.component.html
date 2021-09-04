@@ -1,0 +1,209 @@
+<div class="fh5co-hero">
+  <div class="fh5co-overlay"></div>
+  <div
+    class="fh5co-cover"
+    data-stellar-background-ratio="0.5"
+    style="background-image: url(images/cover_bg_1.jpg)"
+  >
+    <div class="desc">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-5 col-md-5">
+            <div class="tabulation animate-box">
+              <!-- Nav tabs -->
+
+              <!-- Tab panes -->
+              <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="flights">
+                  <form (submit)="submitSearch()" #searchForm="ngForm">
+                    <div class="row">
+                      <div class="col-xxs-12 col-xs-6 mt">
+                        <mat-form-field appearance="fill">
+                          <mat-label>From :</mat-label>
+                          <input
+                            matInput
+                            required
+                            placeholder="Rabat, Casablanca"
+                            name="from"
+                            [(ngModel)]="searchParameters.from"
+                          />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xxs-12 col-xs-6 mt">
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="fill"
+                        >
+                          <mat-label>To :</mat-label>
+                          <input
+                            matInput
+                            required
+                            placeholder="Rabat, Casablanca"
+                            name="to"
+                            [(ngModel)]="searchParameters.to"
+                          />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xs-12 mt alternate">
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="fill"
+                        >
+                          <input
+                            matInput
+                            required
+                            [ngxMatDatetimePicker]="picker"
+                            placeholder="Check In :"
+                            [min]="minDate"
+                            name="checkin"
+                            [(ngModel)]="searchParameters.checkin"
+                          />
+                          <mat-datepicker-toggle
+                            matSuffix
+                            [for]="picker"
+                          ></mat-datepicker-toggle>
+                          <ngx-mat-datetime-picker #picker>
+                          </ngx-mat-datetime-picker>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xs-12 mt">
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="fill"
+                        >
+                          <mat-label>Type</mat-label>
+                          <mat-select
+                            required
+                            name="type"
+                            [(ngModel)]="searchParameters.type"
+                          >
+                            <mat-option value="Train"> Train </mat-option>
+                            <mat-option value="Car"> Car </mat-option>
+                            <mat-option value="Mini bus"> Mini bus </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xs-12">
+                        <button type="submit" class="btn btn-primary btn-block">
+                          Search Trips
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="desc2 animate-box">
+            <div class="col-sm-7 col-sm-push-1 col-md-7 col-md-push-1">
+              <p>Find your cheapist trip</p>
+              <span class="price">With Eeasy Travel</span>
+              <h3>Go anywhere the way you want, when you want.</h3>
+              <!-- <p><a class="btn btn-primary btn-lg" href="#">Get Started</a></p> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="fh5co-blog-section" class="fh5co-section-gray">
+  <div class="container">
+    <div class="row">
+      <div
+        class="col-md-8 col-md-offset-2 text-center heading-section animate-box"
+      >
+        <h1>Search Results</h1>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid" *ngIf="trips$ | async">
+    <div class="row row-bottom-padded-md">
+      <div class="col-lg-3 col-md-3 col-sm-12">
+        <div class="filterContainer">
+          <div class="priceFilterContainer">
+            <div>Price :</div>
+            <div>
+              <mat-slider
+                (change)="filterResults()"
+                [(ngModel)]="filters.price"
+                thumbLabel
+                tickInterval="10"
+                color="primary"
+                step="10"
+                min="0"
+                max="5000"
+                aria-label="price"
+              ></mat-slider>
+            </div>
+          </div>
+          <div class="equipementsFilterContainer">
+            <div>Equipements :</div>
+            <div *ngFor="let equipement of equipementsList | keyvalue">
+              <mat-checkbox [value]="equipement.key"
+                            color="primary"
+                            (change)="changeEquipementsFilter(equipement.key)">
+                            <i class="fa fa-{{equipement.value}}"></i> {{equipement.key}} 
+              </mat-checkbox>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8 col-md-8 col-sm-12">
+        <div class="resultsContainer" *ngFor="let item of trips$ | async">
+          <div class="imageContainer">
+            <img [src]="item.vehicle?.image" />
+          </div>
+          <div class="detailsContainer">
+            <div class="companyName">
+              <span>
+                {{ item.user.name }}
+              </span>
+            </div>
+            <div class="timelineDetail">
+              <div class="timelineFrom">
+                <span class="timelineDate">{{
+                  getItemData(item, "from", "time")
+                }}</span>
+                <br />
+                <span class="timelineName">{{
+                  getItemCityName(item, "from")
+                }}</span>
+              </div>
+              <div class="timelineTo">
+                <span class="timelineDate">{{
+                  getItemData(item, "to", "time")
+                }}</span>
+                <br />
+                <span class="timelineName">{{
+                  getItemCityName(item, "to")
+                }}</span>
+              </div>
+            </div>
+            <div class="equipementsDetails">
+              <span>Equipements:</span>
+              <i
+                matTooltip="{{equipement}}"
+                matTooltipPosition="above"
+                class="fa fa-{{ equipementsList[equipement] }}"
+                *ngFor="let equipement of item.vehicle.equipements.split(',')"
+              ></i>
+            </div>
+          </div>
+          <div class="priceContailer">
+            <div class="priceText">
+              <span>{{ getPrice(item) }}Dh</span>
+            </div>
+            <div class="selectionButtonContainer">
+              <button mat-raised-button color="primary" (click)="showTrip(item)">Selectionner</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix visible-md-block"></div>
+    </div>
+  </div>
+</div>
+<app-trip *ngIf="isTripShowing" [trip]="tripItem" [searchParameters]="searchParameters" (close)="closeTrip()"></app-trip>

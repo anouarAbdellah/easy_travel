@@ -1,0 +1,88 @@
+input {
+    color: rgb(104, 104, 104);
+}
+.example-full-width {
+    width: 100%;
+}
+.resultsContainer {
+    display: flex;
+    margin: 20px;
+    padding: 10px;
+    background: #fff;
+    border-radius: 7px;
+    box-shadow: 0px 0px 10px #b1b1b1;
+    .imageContainer {
+        width: 30%;
+        img {
+            width: 100%;
+        }
+    }
+    .detailsContainer {
+        width: 50%;
+        .companyName span {
+            background: #d5d5d5;
+            color: #7b7b7b;
+            font-weight: 600;
+            padding: 6px 8px;
+            border-radius: 6px;
+            display: inline-block;
+            margin: 6px 10px;
+        }
+        .timelineDetail {
+            display: flex;
+            padding: 30px 0px;
+        }
+        .timelineFrom, .timelineTo {
+            width: 50%;
+            text-align: center;
+            span.timelineDate {
+                font-size: 19px;
+                font-weight: 600;
+            }
+        }
+        .equipementsDetails {
+            padding: 2px 14px;
+            color: #e96c28;
+            i {
+                margin: 0px 6px;
+                cursor: pointer;
+            }
+        }
+    }
+    .priceContailer {
+        text-align: center;
+        width: 20%;
+        .priceText {
+            font-size: 31px;
+            font-weight: 600;
+            height: 75%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        button {
+            width: 80%;
+        }
+    }
+}
+mat-slider {
+    width: 100%;
+}
+.filterContainer {
+    background: #fff;
+    padding: 18px 25px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px grey;
+    .priceFilterContainer {
+        mat-slider {
+            width: 100%;
+        }
+        border-bottom: 1px solid #bbbbbb;
+        margin-bottom: 13px;
+    }
+    .equipementsFilterContainer {
+        i {
+            color: #e96c28;
+        }
+    }
+}

@@ -1,0 +1,24 @@
+.tickets {
+    ul {
+        list-style: none;
+        li {
+            display: flex;
+            justify-content: center;
+            a {
+                font-size: 17px;
+                padding: 10px;
+                display: block;
+                border: 2px solid #eb8434;
+                margin: 10px 10px;
+                border-radius: 18px;
+                color: #676767;
+                text-align: center;
+                width: 40%;
+                font-weight: 600;
+            }
+        }
+    }
+}
+.alert {
+    font-size: 20px;
+}

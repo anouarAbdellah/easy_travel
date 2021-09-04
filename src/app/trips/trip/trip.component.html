@@ -1,0 +1,141 @@
+<div class="trip">
+  <div class="tripConent">
+    <div class="headerClass">
+      <i class="fa fa-times close" (click)="closeTrip()"></i>
+    </div>
+    <h2 class="tripTitle">Choose your seat</h2>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+            <div class="mapContainer">
+                <agm-map [usePanning]='true' width="100%" height="450px" [zoom]="zoom" [latitude]="centerOfMap.lat"
+                [longitude]="centerOfMap.lng">
+    
+                    <agm-marker *ngFor="let marker of markers" 
+                    [latitude]="marker.position.lat" [longitude]="marker.position.lng"
+                    [label]="marker.label">
+                
+                    </agm-marker>
+                
+                </agm-map>
+            </div>
+        </div>
+        <div class="col-md-6">
+          <div class="tripFromTo">
+            <div>
+              {{ getItemCityName(trip, "from") }} >
+              {{ getItemCityName(trip, "to") }}
+            </div>
+          </div>
+          <div
+            class="carContainer"
+            *ngIf="
+              trip.vehicle?.type == 'Car' || trip.vehicle?.type == 'Mini bus'
+            "
+          >
+            <div class="carRow" *ngFor="let carRow of car">
+              <div class="carSeat" *ngFor="let carSeat of carRow">
+                <i
+                  class="material-icons"
+                  (click)="choseSeat(carSeat.seat)"
+                  [ngClass]="{
+                    availableSeat: carSeat.available,
+                    selectedSeat: carSeat.selected
+                  }"
+                  >event_seat</i
+                >
+              </div>
+            </div>
+          </div>
+          <div style="margin: 10px 0px;">
+            <mat-form-field class="form-group" appearance="fill" *ngIf="trip.vehicle?.type == 'Train'">
+              <mat-label>Cart</mat-label>
+              <mat-select
+                required
+                [(ngModel)]="selectedCart"
+              >
+                <mat-option [value]="i" *ngFor="let item of train; let i = index"> {{i+1}} </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="carContainer" *ngIf="trip.vehicle?.type == 'Train'">
+            <div class="carRow" *ngFor="let carRow of train[selectedCart]">
+              <div class="carSeat" *ngFor="let carSeat of carRow">
+                <i
+                  class="material-icons"
+                  (click)="choseSeat(carSeat.seat)"
+                  [ngClass]="{
+                    availableSeat: carSeat.available,
+                    selectedSeat: carSeat.selected
+                  }"
+                  >event_seat</i
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="imgContainer">
+            <img [src]="trip.vehicle?.image" />
+            <hr />
+            <span>Price : {{ getPrice(trip) }}Dh</span>
+            <div class="equipementsDetails">
+              <span>Equipements:</span>
+              <i
+                matTooltip="{{ equipement }}"
+                matTooltipPosition="above"
+                class="fa fa-{{ equipementsList[equipement] }}"
+                *ngFor="let equipement of trip.vehicle.equipements.split(',')"
+              ></i>
+            </div>
+            <button mat-raised-button color="primary" (click)="reserve()">
+              Reserve
+            </button>
+          </div>
+        </div>
+        <div class="col-md-12 mt-3" *ngIf="showReservationForm">
+          <div class="tripForm">
+            <form (submit)="saveTrip()" #tripForm="ngForm">
+              <mat-form-field class="form-group" appearance="fill">
+                <mat-label>Name</mat-label>
+                <input
+                  matInput
+                  placeholder="John Doe"
+                  required
+                  [(ngModel)]="tripToSave.name"
+                  name="name"
+                />
+              </mat-form-field>
+              <mat-form-field class="form-group" appearance="fill">
+                <mat-label>Email</mat-label>
+                <input
+                  matInput
+                  email
+                  placeholder="john@example.org"
+                  required
+                  [(ngModel)]="tripToSave.email"
+                  name="email"
+                />
+              </mat-form-field>
+              <mat-form-field class="form-group" appearance="fill">
+                <mat-label>Phone</mat-label>
+                <input
+                  matInput
+                  placeholder="0666666666"
+                  required
+                  [(ngModel)]="tripToSave.phone"
+                  name="phone"
+                />
+              </mat-form-field>
+              <div class="button-container">
+                <button mat-raised-button color="primary" type="submit">
+                  Save
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

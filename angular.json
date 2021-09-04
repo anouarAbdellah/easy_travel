@@ -28,9 +28,36 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
+              "src/assets/css/animate.css",
+              "src/assets/css/icomoon.css",
+              "src/assets/css/bootstrap.css",
+              "src/assets/css/superfish.css",
+              "src/assets/css/magnific-popup.css",
+              "src/assets/css/bootstrap-datepicker.min.css",
+              "src/assets/css/cs-select.css",
+              "src/assets/css/cs-skin-border.css",
+              "src/assets/css/style.css",
+              "./node_modules/@fortawesome/fontawesome-free/css/all.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/modernizr-2.6.2.min.js",
+              "src/assets/js/jquery.min.js",
+              "src/assets/js/jquery.easing.1.3.js",
+              "src/assets/js/bootstrap.min.js",
+              "src/assets/js/jquery.waypoints.min.js",
+              "src/assets/js/sticky.js",
+              "src/assets/js/jquery.stellar.min.js",
+              "src/assets/js/hoverIntent.js",
+              "src/assets/js/superfish.js",
+              "src/assets/js/jquery.magnific-popup.min.js",
+              "src/assets/js/magnific-popup-options.js",
+              "src/assets/js/bootstrap-datepicker.min.js",
+              "src/assets/js/classie.js",
+              "src/assets/js/selectFx.js",
+              "src/assets/js/main.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -91,9 +118,36 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
+              "src/assets/css/animate.css",
+              "src/assets/css/icomoon.css",
+              "src/assets/css/bootstrap.css",
+              "src/assets/css/superfish.css",
+              "src/assets/css/magnific-popup.css",
+              "src/assets/css/bootstrap-datepicker.min.css",
+              "src/assets/css/cs-select.css",
+              "src/assets/css/cs-skin-border.css",
+              "src/assets/css/style.css",
+              "./node_modules/@fortawesome/fontawesome-free/css/all.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/modernizr-2.6.2.min.js",
+              "src/assets/js/jquery.min.js",
+              "src/assets/js/jquery.easing.1.3.js",
+              "src/assets/js/bootstrap.min.js",
+              "src/assets/js/jquery.waypoints.min.js",
+              "src/assets/js/sticky.js",
+              "src/assets/js/jquery.stellar.min.js",
+              "src/assets/js/hoverIntent.js",
+              "src/assets/js/superfish.js",
+              "src/assets/js/jquery.magnific-popup.min.js",
+              "src/assets/js/magnific-popup-options.js",
+              "src/assets/js/bootstrap-datepicker.min.js",
+              "src/assets/js/classie.js",
+              "src/assets/js/selectFx.js",
+              "src/assets/js/main.js"
+            ]
           }
         },
         "lint": {
@@ -124,5 +178,8 @@
       }
     }
   },
-  "defaultProject": "front"
+  "defaultProject": "front",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }

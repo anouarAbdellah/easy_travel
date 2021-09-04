@@ -1,0 +1,57 @@
+<div class="post">
+  <div class="postConent">
+    <div class="headerClass">
+      <i class="fa fa-times close" (click)="closePost()"></i>
+    </div>
+    <h2 class="postTitle">{{ post.title }}</h2>
+    <div class="postContent">
+      <div class="postImage">
+        <img [src]="post.image" />
+      </div>
+      <div class="postText" [innerHTML]="post.content"></div>
+    </div>
+    <div class="postComments">
+      <h3>Comments</h3>
+      <hr class="commentHr" />
+      <div class="comments">
+        <div class="comment" *ngFor="let comment of post.comments">
+          <div class="commentName">
+            {{ comment.name }} :
+          </div>
+          <div class="commentText">
+            Comment : {{ comment.content }}
+          </div>
+        </div>
+        <div class="commentForm">
+          <form (submit)="saveComment()" #commentForm="ngForm">
+            <mat-form-field class="form-group" appearance="fill">
+              <mat-label>Name</mat-label>
+              <input
+                matInput
+                placeholder="John Doe"
+                required
+                [(ngModel)]="commentToSave.name"
+                name="name"
+              />
+            </mat-form-field>
+            <mat-form-field class="form-group" appearance="fill">
+              <mat-label>Content</mat-label>
+              <textarea
+                matInput
+                placeholder="Something.."
+                required
+                [(ngModel)]="commentToSave.content"
+                name="content"
+              ></textarea>
+            </mat-form-field>
+            <div class="button-container">
+              <button mat-raised-button color="primary" type="submit">
+                Save
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
