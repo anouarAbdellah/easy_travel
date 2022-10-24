@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,6 +26,8 @@ import { TripReducer } from './trips/trip.reducer';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { ContactEffects } from './contact-us/state/contact.effects';
 import { AgmCoreModule } from '@agm/core';
+import * as Sentry from "@sentry/angular";
+import { Router } from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -70,7 +72,23 @@ import { AgmCoreModule } from '@agm/core';
       provide: HTTP_INTERCEPTORS,
       useClass: APIInterceptor,
       multi: true,
-    }
+    },
+    {
+      provide: ErrorHandler,
+      useValue: Sentry.createErrorHandler({
+        showDialog: true,
+      }),
+    },
+    {
+      provide: Sentry.TraceService,
+      deps: [Router],
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: () => () => {},
+      deps: [Sentry.TraceService],
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent]
 })
